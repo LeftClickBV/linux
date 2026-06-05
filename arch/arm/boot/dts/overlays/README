@@ -6135,6 +6135,13 @@ Info:   Enable a JDI LT070ME05000 DSI display on DSI1 using Harlab's V2
 Load:   dtoverlay=vc4-kms-dsi-lt070me05000-v2
 Params: <None>
 
+Name:   vc4-kms-dsi-rk101iz062
+Info:   Enable a Rocktech RK101IZ062 DSI display on DSI0.
+        Note that this is a 4 lane DSI device, so it will only work on a Compute
+        Module.
+        Requires vc4-kms-v3d to be loaded.
+Load:   dtoverlay=vc4-kms-dsi-rk101iz062-overlay
+Params: <None>
 
 Name:   vc4-kms-dsi-tdo-panel
 Info:   Enable the Tdo DSI screen,keep adding.
