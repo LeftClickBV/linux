@@ -1,0 +1,55 @@
+/*
+ * Devicetree overlay to connect a Rocktech RK101IZ062 DSI panel to DSI0.
+ * This uses 4 DSI data lanes, so can only be used with a Compute Module.
+ *
+ * Based on the LT070ME0500 devicetree overlay.
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&dsi0>;
+		__overlay__{
+			status = "okay";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port {
+				dsi_out_port: endpoint {
+					remote-endpoint = <&panel_dsi_port>;
+				};
+			};
+
+			rk101iz062: rk101iz062@0 {
+				compatible    = "boe,himax8279d10p";
+				status        = "okay";
+				reg           = <0>;
+				pinctrl-0     = <&rk101iz062_pins>;
+				pinctrl-names = "default";
+				pp33-gpios    = <&gpio 4 0>;
+				pp18-gpios    = <&gpio 5 0>;
+				enable-gpios  = <&gpio 17 1>;
+				port {
+					panel_dsi_port: endpoint {
+						remote-endpoint = <&dsi_out_port>;
+					};
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&gpio>;
+		__overlay__ {
+			rk101iz062_pins: rk101iz062_pins {
+				pins = "gpio4", "gpio5", "gpio17";
+				function = "out";
+				bias-disable;
+			};
+		};
+
+	};
+};

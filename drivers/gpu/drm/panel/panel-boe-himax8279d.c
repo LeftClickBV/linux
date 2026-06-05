@@ -221,7 +221,8 @@ static const struct drm_panel_funcs panel_funcs = {
 };
 
 static const struct drm_display_mode default_display_mode = {
-	.clock = 159420,
+	/* .clock = 159261, // htotal * vtotal * 60.0 */
+	.clock = 157800, // htotal * vtotal * framerate
 	.hdisplay = 1200,
 	.hsync_start = 1200 + 80,
 	.hsync_end = 1200 + 80 + 60,
@@ -229,7 +230,7 @@ static const struct drm_display_mode default_display_mode = {
 	.vdisplay = 1920,
 	.vsync_start = 1920 + 10,
 	.vsync_end = 1920 + 10 + 14,
-	.vtotal = 1920 + 10 + 14 + 4,
+	.vtotal = 1920 + 10 + 14 + 2,
 };
 
 /* 8 inch */
