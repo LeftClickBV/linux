@@ -1,0 +1,57 @@
+/*
+ * Devicetree overlay to define the LC2027R display backlight driver using a
+ * PWM GPIO pin and an enable PGIO pin.
+ *
+ * Based on the DSI ILI79600 10.1 inch devicetree overlay.
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			backlight_pins: backlight_pins {
+				/* GPIO12: PWM */
+				brcm,pins = <12>;
+				brcm,function = <4>;
+				brcm,pull = <0>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&pwm>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&backlight_pins>;
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target-path = "/";
+
+		__overlay__ {
+			backlight: backlight {
+				compatible = "pwm-backlight";
+				/* Use PWM channel 0, 5 ms period = 200 Hz, normal polarity. */
+				pwms = <&pwm 0 5000000 0>;
+				/* Brightness steps: 0 - 40. */
+				brightness-levels = <
+					  0   1   2   3   4   5   6   7
+					  8  16  24  32  40  48  56  64
+					 72  80  88  96 104 112 120 128
+					136 144 152 160 168 176 184 192
+					200 208 216 224 232 240 248 255
+				>;
+				/* Default brightness at 90%, i.e. step 36. */
+				default-brightness-level = <36>;
+				status = "okay";
+			};
+		};
+	};
+};

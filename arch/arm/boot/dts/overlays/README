@@ -3447,6 +3447,12 @@ Load:   dtoverlay=justboom-digi
 Params: <None>
 
 
+Name:   lc2027r-backlight
+Info:   Enable the LC2027 display backlight driver
+Load:   dtoverlay=lc2027r-backlight
+Params: <None>
+
+
 Name:   lirc-rpi
 Info:   This overlay has been deprecated and removed - see gpio-ir
 Load:   <Deprecated>

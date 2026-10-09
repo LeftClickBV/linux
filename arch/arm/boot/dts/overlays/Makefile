@@ -170,6 +170,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	justboom-both.dtbo \
 	justboom-dac.dtbo \
 	justboom-digi.dtbo \
+	lc2027r-backlight.dtbo \
 	ltc294x.dtbo \
 	max98357a.dtbo \
 	maxtherm.dtbo \
